@@ -17,7 +17,7 @@ import ProductCard from "./ProductCard";
  * ]
  */
 
-function ProductList({addToCart,cart}){
+function ProductList({addToCart,cart,decreaseQuantity,increaseQuantity}){
     return products.map((product,index) => {
         const productWithId = {
             id:index + 1,
@@ -26,6 +26,8 @@ function ProductList({addToCart,cart}){
         return (
             <ProductCard
             cart={cart}
+            decreaseQuantity={decreaseQuantity}
+            increaseQuantity={increaseQuantity}
             addToCart={addToCart}
             key={index}
             product={productWithId}
@@ -33,12 +35,17 @@ function ProductList({addToCart,cart}){
         )
     })
 }
-export default function ProductSection({cart,addToCart}){
+export default function ProductSection({cart,addToCart,decreaseQuantity,increaseQuantity}){
     return (
         <section>
             <h2>Desserts</h2>
             <div className="product-container">
-                <ProductList cart={cart} addToCart={addToCart}/>
+                <ProductList
+                cart={cart}
+                addToCart={addToCart}
+                decreaseQuantity={decreaseQuantity}
+                increaseQuantity={increaseQuantity}
+                />
             </div>
         </section>
     )

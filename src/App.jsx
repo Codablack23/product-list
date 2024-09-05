@@ -51,15 +51,51 @@ function App() {
   const removeFromCart = (id)=>{
     setCart((snapShot)=>snapShot.filter((item)=>item.id !== id))
   }
+  const clearCart = () => {
+    setCart([])
+  }
+
+  const increaseQuantity = (id) => {
+    setCart((snapShot)=>{
+        return snapShot.map((item)=>{
+        if(item.id !== id) return item;
+        return {
+          ...item,
+          quantity:item.quantity + 1,
+        }
+      });
+    })
+  }
+  const decreaseQuantity = (id) => {
+    setCart((snapShot)=>{
+        return snapShot.map((item)=>{
+        if(item.id !== id) return item;
+        if(item.quantity < 2 ) return item;
+        return {
+          ...item,
+          quantity:item.quantity - 1,
+        }
+      });
+    })
+  }
 
   return (
     <main className="main-grid">
-       <div>
-         <ProductSection addToCart={addToCart} cart={cart}/>
-       </div>
-       <div>
-          <CartSection cart={cart} removeFromCart={removeFromCart}/>
-       </div>
+        <div>
+          <ProductSection
+          addToCart={addToCart}
+          cart={cart}
+          decreaseQuantity={decreaseQuantity}
+          increaseQuantity={increaseQuantity}
+          />
+        </div>
+        <div>
+            <CartSection
+            clearCart={clearCart}
+            cart={cart}
+            removeFromCart={removeFromCart}
+            />
+        </div>
     </main>
   )
 }
