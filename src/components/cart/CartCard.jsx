@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import { DeleteIcon } from "../../icons/delete-icon";
+import CartContext from "../../context/CartContext";
 
 /* eslint-disable react/prop-types */
-export default function CartCard({product,removeFromCart}){
+export default function CartCard({product}){
+    const {removeFromCart} = useContext(CartContext)
     const handleClick = ()=>{
         removeFromCart(product.id);
     }

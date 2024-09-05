@@ -1,9 +1,12 @@
-/* eslint-disable no-unused-vars */
+import { useContext } from "react"
 import AddToCartBtn from "./AddToCart"
 import QuantityBtn from "./QuantityBtn"
+import CartContext from "../../context/CartContext"
 
 /* eslint-disable react/prop-types */
-export default function ProductCard({product,cart,addToCart,decreaseQuantity,increaseQuantity}){
+export default function ProductCard({product}){
+    const {cart,addToCart,decreaseQuantity,increaseQuantity} = useContext(CartContext)
+
     const productInCart = cart.some((item)=>item.id === product.id)
     const cartProduct = cart.find((item)=>item.id === product.id)
     const productQuantity = cartProduct !==undefined ? cartProduct.quantity : 1

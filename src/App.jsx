@@ -1,7 +1,7 @@
-import { useState } from 'react'
 import './App.css'
 import CartSection from './components/cart/section'
 import ProductSection from './components/Products/section'
+import CartContextProvider from './context/CartContextProvider'
 
 /**
  * Cart Data Structure * [
@@ -26,77 +26,20 @@ import ProductSection from './components/Products/section'
 // const OddExists = numbers1.some((number) => number % 2 !== 0)
 
 function App() {
-  const [cart, setCart] = useState([])
-
-  const addToCart = (product)=>{
-    setCart((snapShot)=>{
-      const productInCart = snapShot.some((item)=>item.id === product.id)
-      if(productInCart) return snapShot.map((item)=>{
-        if(item.id !== product.id) return item;
-        return {
-          ...item,
-          quantity:item.quantity + 1,
-        }
-      });
-      return [
-        ...snapShot,
-        {
-          ...product,
-          quantity:1
-        }
-      ]
-    })
-  }
-
-  const removeFromCart = (id)=>{
-    setCart((snapShot)=>snapShot.filter((item)=>item.id !== id))
-  }
-  const clearCart = () => {
-    setCart([])
-  }
-
-  const increaseQuantity = (id) => {
-    setCart((snapShot)=>{
-        return snapShot.map((item)=>{
-        if(item.id !== id) return item;
-        return {
-          ...item,
-          quantity:item.quantity + 1,
-        }
-      });
-    })
-  }
-  const decreaseQuantity = (id) => {
-    setCart((snapShot)=>{
-        return snapShot.map((item)=>{
-        if(item.id !== id) return item;
-        if(item.quantity < 2 ) return item;
-        return {
-          ...item,
-          quantity:item.quantity - 1,
-        }
-      });
-    })
-  }
 
   return (
-    <main className="main-grid">
+    <>
+    <CartContextProvider>
+      <main className="main-grid">
         <div>
-          <ProductSection
-          addToCart={addToCart}
-          cart={cart}
-          decreaseQuantity={decreaseQuantity}
-          increaseQuantity={increaseQuantity}
-          />
+          <ProductSection/>
         </div>
         <div>
-            <CartSection
-            clearCart={clearCart}
-            cart={cart}
-            removeFromCart={removeFromCart}
-            />
+            <CartSection/>
         </div>
     </main>
+    </CartContextProvider>
+    </>
   )
 }
 
