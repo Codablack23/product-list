@@ -13,7 +13,11 @@ function OrderList({orders}){
     )
 }
 
-export default function OrderModal({orders,cartTotal}){
+export default function OrderModal({orders,cartTotal,open,handlerFunction}){
+    // open == false
+    if(!open){
+        return null;
+    }
     return (
         <div className="order-modal-container">
             <div className="order-modal">
@@ -23,7 +27,7 @@ export default function OrderModal({orders,cartTotal}){
                     <OrderList orders={orders} />
                     <CartTotalHeader totalPrice={cartTotal.toFixed(2)}/>
                 </div>
-                <ActionBtn title={"Start New Order"}/>
+                <ActionBtn handleClick={handlerFunction} title={"Start New Order"}/>
             </div>
         </div>
     )

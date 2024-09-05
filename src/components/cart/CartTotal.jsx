@@ -11,11 +11,11 @@ export function CartTotalHeader({totalPrice}){
     )
 }
 
-export default function CartTotal({totalPrice}){
+export default function CartTotal({totalPrice,openModal}){
     return (
         <footer className="cart-total-container">
             <CartTotalHeader totalPrice={totalPrice}/>
-            <ActionBtn title={"confirm order"}/>
+            <ActionBtn handleClick={openModal} title={"confirm order"}/>
         </footer>
     )
 }
